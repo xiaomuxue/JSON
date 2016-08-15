@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>递归树</title>
+  <style>
+        .redText{
+        	color:red;
+        }
+	</style>
+</head>
+
+<body>
+   <script type="text/javascript">
+		function TreeItem(text,icon,link){
+			this.text=text;
+			this.icon=icon;
+			this.link=link;
+			this.sonItems=[];
+		}
+		//扩展功能
+		TreeItem.prototype={
+		    attributes:{
+		    	className:'',
+		    },
+		    addSonItem:function(sonItem){
+		    	this.sonItems.push(sonItem);
+		    },
+		    getSonItetmCount:function(){
+		    	return this.sonItems.length;
+		    },
+		    getAllSonItem:function(){
+		    	return this.sonItems;
+		    },
+		    showItem:function( parentNode ){
+				var root;
+		    	if(this.sonItems.length<=0){
+		    	    root=document.createElement("li");//创建元素节点li
+					if( this.link ){
+						var a=document.createElement("A");
+						a.href=this.link;
+					    var txt=document.createTextNode( this.text );        //创建文本节点  this.text
+						a.appendChild( txt );
+					    root.appendChild( a );     //把文本节点加到元素节点下
+					}else{
+					    var txt=document.createTextNode( this.text );        //创建文本节点  this.text
+					    root.appendChild( txt );     //把文本节点加到元素节点下root.appendChild( a );     //把文本节点加到元素节点下
+					}
+					parentNode.appendChild(root);
+					return;
+				}
+				
+				root=document.createElement("li");
+				var txt=document.createTextNode( this.text );
+				root.appendChild(txt);
+				var ulnode=document.createElement("ul");
+				root.appendChild( ulnode );    //在里面填写父节点
+				for(var i=0;i<this.sonItems.length;i++){
+			        var sl=this.sonItems[i];
+					sl.showItem( ulnode );
+				}
+				parentNode.appendChild( root );
+			} 		
+		};
+		
+		//这个函数的作用：将  jsonarray 中的数据包装到 parentNode.sonItem
+		function walk( parentNode, jsonarray ){
+		   for(var i=0;i<jsonarray.length;i++){
+		       var jsonobject=jsonarray[i];
+			   var ti=new TreeItem( jsonobject.text, jsonobject.icon, jsonobject.link  );
+			   parentNode.addSonItem( ti );     //第一轮：把用户管理、平台管理、商品管理、订单管理 -> 后台管理
+			   if( jsonobject.sonItems!=null && jsonobject.sonItems.length>0){
+			      walk( ti,  jsonobject.sonItems );
+			   }
+		   }
+		}
+		
+		//链接服务器
+		var result="[{\"id\":1,\"text\":\"后台管理\",\"icon\":\"star\",\"sonItems\":[{\"id\":2,\"text\":\"用户管理\",\"sonItems\":[{\"id\":6,\"text\":\"用户浏览\",\"link\":\"xxx.com\"},{\"id\":7,\"text\":\"VIP客户\",\"link\":\"xxx.com\"},{\"id\":8,\"text\":\"通知\",\"link\":\"xxx.com\"}]},{\"id\":3,\"text\":\"平台信息\",\"sonItems\":[{\"id\":9,\"text\":\"系统平台\",\"link\":\"xxx.com\"},{\"id\":10,\"text\":\"友情链接\",\"link\":\"xxx.com\"},{\"id\":11,\"text\":\"流量分析\",\"link\":\"xxx.com\"}]},{\"id\":4,\"text\":\"商品管理\",\"sonItems\":[{\"id\":12,\"text\":\"商品浏览\",\"link\":\"xxx.com\"}]},{\"id\":5,\"text\":\"订单管理\",\"sonItems\":[{\"id\":13,\"text\":\"订单浏览\",\"link\":\"xxx.com\"},{\"id\":14,\"text\":\"历史订单记录\",\"link\":\"xxx.com\"}]}]}]";
+		
+		
+		var jsonarray=eval( "("+result+")" );     //jsonarray     在里面加括号，是为了消除（）的二义性。
+		var root;
+		
+		if(jsonarray!=null && jsonarray.length>0){
+		    var rootobject= jsonarray[0];    //根节点  普通对象object,而不是  TreeItem
+			root=new TreeItem( rootobject.text, rootobject.icon, rootobject.link );
+			if( rootobject.sonItems!=null&&rootobject.sonItems.length>0){
+			    walk( root,rootobject.sonItems );     //rootobject.sonItems指sonItems所有的子节点
+			}
+		}
+		
+		root.showItem( document.body );   //表示添加到文本body里面去
+	</script>
+</body>
+</html>

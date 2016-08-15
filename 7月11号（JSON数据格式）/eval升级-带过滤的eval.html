@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>eval升级-带过滤的eval</title>
+</head>
+
+<body>
+   <script type="text/javascript">
+       var obj=yc.parseJson( '{"name":"a","age":2000}' );     //这里报了一个错，yc未定义
+	   alert(obj.name+"\t"+obj.age );
+	   
+	   var obj2=eval( "("+'{"name":"a","age":2000}'+")" );
+	   alert(obj2.name+"\t"+obj2.age);
+	   
+	   obj=yc.parseJson('{"name":"a","age":2000,"date":30}',function(key,value){
+	      return key.indexOf('date')>= 0 ? new Date(value):value;	  
+	});
+	alert(obj.name+"\t"+obj.age+"\t"+obj.date);
+   </script>
+</body>
+</html>

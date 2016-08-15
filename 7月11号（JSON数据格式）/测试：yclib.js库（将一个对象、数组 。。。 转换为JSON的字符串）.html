@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>测试：yclib.js库（将一个对象、数组 。。。 转换为JSON的字符串）</title>
+<script type="text/javascript" src="../7月1号（自己写的测试库）/yclib.js"></script>
+
+</head>
+
+<body>
+  <script type="text/javascript">
+      var person=new Object();   //window的object  window的yc
+	  person.name="zy";
+	  person.age=30;
+	  person.sex="男";
+	  
+	  alert( person.toString() );
+	 //需求： 给Object类的prototype添加一个功能   toJSONString(),将属性的值以json格式输出
+	  //{"name":"zy","age":"20","sex":"男"}
+  //for(var i in person )    person[i]取出值 
+  
+  alert( person.toJSONString() );     //{"name":"zy","age":"20","sex":"男"}
+  
+  var person2=new Object();
+  person2.name="ls";
+  person2.age=30;
+  person2.sex="男";
+  
+  var arr=new Array();
+  arr.push( person );
+  arr.push( person2 );
+  
+  alert( arr.toString() );
+	  
+  </script>
+</body>
+</html>

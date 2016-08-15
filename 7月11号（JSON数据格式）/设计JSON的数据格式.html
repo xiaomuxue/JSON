@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>设计JSON格式</title>
+</head>
+
+<body>
+  <script type="text/javascript">
+  
+  //要求：设计出一个JSON数据返回：有商品价格、商品总数、商品所在页数、商品图片
+    /* {
+		 "page":1,      //在哪一页
+		 "rows":10,
+         "commodity":[{"pid":1,"pname":"苹果","price":"20.0","img":"1.jpg"},
+		              {"pid":2,"pname":"苹果","price":"20.0","img":"1.jpg"},
+					  {"pid":3,"pname":"苹果","price":"20.0","img":"1.jpg"},
+					  {"pid":4,"pname":"苹果","price":"20.0","img":"1.jpg"},
+					  {"pid":5,"pname":"苹果","price":"20.0","img":"1.jpg"},
+					  {"pid":6,"pname":"苹果","price":"20.0","img":"1.jpg"},
+					  {"pid":7,"pname":"苹果","price":"20.0","img":"1.jpg"},
+					  {"pid":8,"pname":"苹果","price":"20.0","img":"1.jpg"},
+					  {"pid":9,"pname":"苹果","price":"20.0","img":"1.jpg"},
+					  {"pid":10,"pname":"苹果","price":"20.0","img":"1.jpg"},
+				]
+	 }*/
+	 
+	/* 菜单数据：
+	 
+	 显示效果：
+	 ==========================================================
+	 后台管理
+	     用户管理
+		    <a href="">用户浏览</a>
+			<a href="">VIP客户</a>
+			<a href="">通知</a>
+	     平台信息
+		    <a href="">系统平台</a>
+			<a href="">友情链接</a>
+			<a href="">流量分析</a>
+	     商品管理
+		    <a href="">商品浏览</a>
+		订单管理
+		    <a href="">订单浏览</a>
+			<a href="">历史订单记录</a>
+	 
+	*/
+	[{
+	    "id":1,
+		"text":"后台管理",
+		"icon":"star",
+		"childer":[
+		           {"id":2,"text":"用户管理","childer":[
+				                      {"id":6,"text":"用户浏览","url":"xxx.com"},
+									  {"id":7,"text":"VIP客户","url":"xxx.com"},
+									  {"id":8,"text":"通知","url":"xxx.com"}
+					]},
+		           {"id":3,"text":"平台信息","childer":[
+				                      {"id",9,"text":"系统平台","url":"xxx.com"},
+									  {"id",10,"text":"友情链接","url":"xxx.com"},
+									  {"id",11,"text":"流量分析","url":"xxx.com"}
+					]},
+				   {"id":4,"text":"商品管理","childer":[
+				                      {"id",12,"text":"商品浏览","url":"xxx.com"}
+					]},
+				   {"id":5,"text":"订单管理","childer":[
+				                      {"id",13,"text":"订单浏览","url":"xxx.com"},
+									  {"id",14,"text":"历史订单记录","url":"xxx.com"}
+					]}
+				  ]
+	}]
+	 
+	 
+  </script>
+</body>
+</html>

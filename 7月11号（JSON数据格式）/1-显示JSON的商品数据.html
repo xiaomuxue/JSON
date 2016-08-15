@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>1-显示JSON的商品数据</title>
+</head>
+
+<body>
+   <div id="pro">
+      <table>
+         <thead>
+            <tr>
+               <td>编号</td>
+               <td>商品名</td>
+               <td>价格</td>
+               <td>图像</td>
+            </tr>
+         </thead>
+         
+         <tbody id="probody">
+         
+         </tbody>
+      </table>
+   </div>
+   
+   <script type="text/javascript">
+       //请求服务器。。。。。
+	   var result="{\"page\":1,\"rows\":10,\"commodity\":[{\"pid\":1,\"pname\":\"苹果\",\"price\":20,\"img\":\"1.jpg\"},{\"pid\":2,\"pname\":\"苹果\",\"price\":20,\"img\":\"1.jpg\"},{\"pid\":3,\"pname\":\"苹果\",\"price\":20,\"img\":\"1.jpg\"},{\"pid\":4,\"pname\":\"苹果\",\"price\":20,\"img\":\"1.jpg\"},{\"pid\":5,\"pname\":\"苹果\",\"price\":20,\"img\":\"1.jpg\"},{\"pid\":6,\"pname\":\"苹果\",\"price\":20,\"img\":\"1.jpg\"},{\"pid\":7,\"pname\":\"苹果\",\"price\":20,\"img\":\"1.jpg\"},{\"pid\":8,\"pname\":\"苹果\",\"price\":20,\"img\":\"1.jpg\"},{\"pid\":9,\"pname\":\"苹果\",\"price\":20,\"img\":\"1.jpg\"},{\"pid\":10,\"pname\":\"苹果\",\"price\":20,\"img\":\"1.jpg\"}]}";
+	   
+	   
+	   //以上是一个字符串，要求：将这个字符串转换成  JS语言中的 json对象 ，   对象名.属性名
+	   //var array=对象名.commodity
+	   
+	   
+	   //在window顶层对象中，有一个eval( String )
+	   var robject=eval( "("+result+")" );       //由于{}的原因，它有两个意思，所以要确定它到底代表的是哪种，加了（）代表是对象，不加就可能是函数块   var a=function(){}
+	   //eval();     //jsonarray
+	   
+	   
+	   var str="";
+	   for(var i=0;i<robject.commodity.length;i++){
+		      str+="<tr>";
+			  var c=robject.commodity[i];
+			  str+="<td>"+c.pid+"</td><td>"+c.pname+"</td><td>"+c.price+"</td><td><img src="+c.img+" /></td>";
+			  str+="</tr>";
+		   }
+		   document.getElementById("probody").innerHTML=str;
+   </script>
+</body>
+</html>
